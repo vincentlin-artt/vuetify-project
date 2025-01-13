@@ -1,0 +1,88 @@
+<template>
+  <div div class="text-center">
+    <v-btn color="indigo">click me</v-btn>
+    <v-btn color="primary">Hello Vuetify from Vincent I am here </v-btn>
+  </div>
+  <div class="parent">
+    <h1>Test</h1>
+  </div>
+  <v-card></v-card>
+  <v-list-item
+    base-color="surface-light"
+    border="opacity-50 md"
+    lines="two"
+    max-width="796"
+    prepend-avatar="https://cdn.vuetifyjs.com/docs/images/one/logos/one.png"
+    rounded="lg"
+    variant="flat"
+  >
+    <v-list-item-title>
+      <span class="text-h6">Vuetify One Subscriber</span>
+    </v-list-item-title>
+
+    <v-list-item-subtitle :opacity="isSubscriber ? 0.8 : undefined">
+      <v-scroll-y-reverse-transition mode="out-in">
+        <div
+          v-if="isSubscriber"
+          key="subscribed"
+          class="text-success text-caption"
+        >
+          <v-icon icon="mdi-medal" size="1em"></v-icon>
+          $2.99 /month
+        </div>
+
+        <div v-else key="not-subscribed" class="text-caption">
+          Support Vuetify by becoming a Subscriber
+        </div>
+      </v-scroll-y-reverse-transition>
+    </v-list-item-subtitle>
+
+    <template v-slot:append>
+      <v-fade-transition mode="out-in">
+        <v-btn
+          :key="`subscribe-${isSubscriber}`"
+          :border="`thin ${isSubscriber ? 'error' : 'success'}`"
+          :color="isSubscriber ? 'error' : 'success'"
+          :prepend-icon="isSubscriber ? 'mdi-close' : 'mdi-email'"
+          :slim="isSubscriber"
+          :text="isSubscriber ? 'Cancel' : 'Subscribe'"
+          :variant="isSubscriber ? 'plain' : 'tonal'"
+          class="me-2 text-none"
+          size="small"
+          flat
+          @click="isSubscriber = !isSubscriber"
+        ></v-btn>
+      </v-fade-transition>
+
+      <v-fade-transition mode="out-in">
+        <v-btn
+          :key="`info-${isSubscriber}`"
+          :color="isSubscriber ? 'success' : 'primary'"
+          :prepend-icon="isSubscriber ? 'mdi-check' : 'mdi-open-in-new'"
+          :readonly="isSubscriber"
+          :text="isSubscriber ? 'Subscribed' : 'More Info'"
+          class="text-none"
+          size="small"
+          variant="flat"
+          flat
+        ></v-btn>
+      </v-fade-transition>
+    </template>
+  </v-list-item>
+</template>
+
+<script setup>
+import { shallowRef } from "vue";
+
+const isSubscriber = shallowRef(false);
+</script>
+
+<style scoped>
+.parent {
+  display: flex;
+  /* 水平置中 */
+  justify-content: center;
+  /* 垂直置中 */
+  align-items: center;
+}
+</style>
